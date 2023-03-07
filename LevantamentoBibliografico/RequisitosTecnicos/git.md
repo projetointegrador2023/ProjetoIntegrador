@@ -11,3 +11,13 @@
 * [Adicionar chave SSH ao Agent](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
 * [Tutorial de como fazer o commit](https://ilegra.com/blog/do-zero-git-github-como-criar-primeiro-repositorio-e-subir-seu-primeiro-projeto/)
+
+### Gerenciando chaves SSH com múltiplas contas no Github 
+
+https://www.freecodecamp.org/portuguese/news/como-gerenciar-diversas-contas-do-github-em-uma-unica-maquina-com-chaves-ssh/
+
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/managing-deploy-keys
+
+https://superuser.com/questions/232373/how-to-tell-git-which-private-key-to-use
+
+https://stackoverflow.com/questions/2643502/git-how-to-solve-permission-denied-publickey-error-when-using-git
