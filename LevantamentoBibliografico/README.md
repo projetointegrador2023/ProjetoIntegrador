@@ -64,7 +64,7 @@ https://docs.djangoproject.com/en/4.1/ref/models/fields/
 
 https://docs.djangoproject.com/en/4.1/ref/validators/#django.core.validators.MaxValueValidator
 ```
-_________________________________________________________________
+----------------------------------------------------------------------------------
 
 ### **Git e GitHub**
 
@@ -101,7 +101,7 @@ https://pypi.org/project/python-decouple/
 
 https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html
 ```
-
+-----------------------------------------------------------------------------------------------
 ### **Hospedagem da aplicação no PythonAnywhere**
 ```
 https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/
