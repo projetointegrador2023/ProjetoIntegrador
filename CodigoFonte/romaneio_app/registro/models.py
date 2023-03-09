@@ -2,11 +2,11 @@ from django.db import models
 
 # Create your models here.
 
-class Notas(models.Model):
+class Nota(models.Model):
     fornecedor = models.CharField('NOME_FORNECEDOR', max_length=50)
     razaosocial = models.CharField('RAZÃO_SOCIAL', max_length=50)
-    nf = models.IntegerField('NF')
-    mdeco = models.IntegerField('M_DE_CO')
+    nf = models.PositiveIntegerField('NF')
+    mdeco = models.PositiveIntegerField('M_DE_CO')
     dataEmissao = models.DateField('DATA_EMISSÃO', default=0)
     dataVencimento = models.DateField('DATA_VENCIMENTO', default=0)
     valor = models.DecimalField('VALOR', max_digits=8, decimal_places=2, default=0)
@@ -18,5 +18,5 @@ class Notas(models.Model):
         ordering=('fornecedor',)
 
     def __str__(self) :
-        return self.fornecedor
+        return self.fornecedor  
 
