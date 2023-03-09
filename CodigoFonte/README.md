@@ -14,8 +14,9 @@ cd RepoProjetoIntegrador/CodigoFonte
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
-python3 romaneio_app/contrib/env_gen.py
-python3 romaneio_app/manage.py migrate
-python3 romaneio_app/manage.py createsuperuser
-python3 romaneio_app/manage.py runserver
+cd romaneio_app
+python3 contrib/env_gen.py
+python3 manage.py migrate
+python3 manage.py createsuperuser
+python3 manage.py runserver
 ```
