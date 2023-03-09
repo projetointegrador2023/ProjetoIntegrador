@@ -10,7 +10,7 @@
 Exemplo:
 ```sh
 git clone https://github.com/projetointegrador2023/RepoProjetoIntegrador.git
-cd CodigoFonte
+cd RepoProjetoIntegrador/CodigoFonte
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
