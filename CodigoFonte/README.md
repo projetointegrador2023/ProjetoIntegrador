@@ -8,7 +8,7 @@
 - Rode as migrações
 
 Exemplo:
-```sh
+```bash
 git clone https://github.com/projetointegrador2023/ProjetoIntegrador.git
 cd RepoProjetoIntegrador/CodigoFonte
 python3 -m venv env
