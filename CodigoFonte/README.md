@@ -9,7 +9,7 @@
 
 Exemplo:
 ```sh
-git clone https://github.com/projetointegrador2023/RepoProjetoIntegrador.git
+git clone https://github.com/projetointegrador2023/ProjetoIntegrador.git
 cd RepoProjetoIntegrador/CodigoFonte
 python3 -m venv env
 source env/bin/activate
