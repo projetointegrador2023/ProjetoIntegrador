@@ -4,7 +4,7 @@
 
 - Clone esse repositório
 - Crie um ambiente virtual - [instruções](https://cloud.google.com/python/docs/setup?hl=pt-br#linux)
-- Instale as dependências - requirements.txt
+- Instale as dependências - **requirements.txt**
 - Rode as migrações
 
 Exemplo:
