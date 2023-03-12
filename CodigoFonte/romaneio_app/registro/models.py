@@ -6,7 +6,7 @@ class Nota(models.Model):
     fornecedor = models.CharField('NOME_FORNECEDOR', max_length=50)
     razaosocial = models.CharField('RAZÃO_SOCIAL', max_length=50)
     nf = models.PositiveIntegerField('NF')
-    mdeco = models.PositiveIntegerField('M_DE_CO')
+    mdeco = models.PositiveIntegerField('ORDEM_DE_COMPRA')
     dataEmissao = models.DateField('DATA_EMISSÃO', default=0)
     dataVencimento = models.DateField('DATA_VENCIMENTO', default=0)
     valor = models.DecimalField('VALOR', max_digits=8, decimal_places=2, default=0)

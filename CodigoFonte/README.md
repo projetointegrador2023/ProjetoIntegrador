@@ -3,14 +3,14 @@
 ### Como iniciar o projeto:
 
 - Clone esse repositório
-- Crie um ambiente virtual com Python 3 [instruções](https://cloud.google.com/python/docs/setup?hl=pt-br#linux)
-- Instale as dependências (requirements.txt)
+- Crie um ambiente virtual - [instruções](https://cloud.google.com/python/docs/setup?hl=pt-br#linux)
+- Instale as dependências - requirements.txt
 - Rode as migrações
 
 Exemplo:
 ```bash
 git clone https://github.com/projetointegrador2023/ProjetoIntegrador.git
-cd RepoProjetoIntegrador/CodigoFonte
+cd CodigoFonte
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
