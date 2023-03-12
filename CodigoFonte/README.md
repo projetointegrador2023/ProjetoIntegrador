@@ -3,7 +3,7 @@
 ### Como iniciar o projeto:
 
 - Clone esse repositório
-- Crie um ambiente virtual - [instruções](https://cloud.google.com/python/docs/setup?hl=pt-br#linux)
+- Crie um ambiente virtual - **[instruções](https://cloud.google.com/python/docs/setup?hl=pt-br#linux)**
 - Instale as dependências - **requirements.txt**
 - Rode as migrações
 
