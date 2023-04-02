@@ -42,6 +42,8 @@ Comandos:
 - python3 mananage.py makemigrations
 - python3 manage.py migrate
 ```
+Mudar credenciais do Git no Windows (caso use mais de uma conta no GitHub):
+> Painel de Controle > Gerenciador de Credenciais > Credenciais do Windows > Credenciais Genéricas (remove as credenciais do Git para fazer autenticação novamente)
 
 Links:
 - [Git](https://git-scm.com/downloads)
