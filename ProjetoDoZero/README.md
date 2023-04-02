@@ -16,15 +16,29 @@ Comandos:
 ```
 
 Links:
-- [Download Python](https://www.python.org/downloads/)
+- [Python](https://www.python.org/downloads/)
 
 **Dia 2**
 
 Instalação:
+- OpenSSH Client
 - Git
 
 Comandos:
 ```bash
+- Get-Service ssh-agent | Set-Service -StartupType Automatic -PassThru | Start-Service # PowerShell
+- eval "$(ssh-agent -s)"
+- ssh-keygen -t rsa -f ~/.ssh/nome_da_chave
+- ssh-add ~/.ssh/nome_da_chave
+- touch  ~/.ssh/config
+- clip < ~/.ssh/id_ed25519.pub
+- git config --global user.name "nome_do_usuario"
+- git config --global user.email "email_do_usuario"
+- git clone link_do_repositorio
+
 - python3 mananage.py makemigrations
 - python3 manage.py migrate
 ```
+
+Links:
+- [Git](https://git-scm.com/downloads)
