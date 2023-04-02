@@ -34,8 +34,11 @@ Comandos:
 - clip < ~/.ssh/id_ed25519.pub
 - git config --global user.name "nome_do_usuario"
 - git config --global user.email "email_do_usuario"
+- git remote set-url origin "git@github.com:username/repository.git"
 - git clone link_do_repositorio
-
+- git status
+- git commit -m "comentario"
+- git push
 - python3 mananage.py makemigrations
 - python3 manage.py migrate
 ```
