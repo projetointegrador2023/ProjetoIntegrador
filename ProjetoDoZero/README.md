@@ -1,11 +1,11 @@
 **Dia 1**
 
-Instalação:
+### Instalação
 - Python
 - Pip
 - Django
 
-Comandos:
+### Comandos:
 ```bash
 - python --version ou python -V
 - pip --version
@@ -15,16 +15,16 @@ Comandos:
 - python3 manage.py startapp nome_da_app
 ```
 
-Links:
+### Links:
 - [Python](https://www.python.org/downloads/)
 
 **Dia 2**
 
-Instalação:
+### Instalação
 - OpenSSH Client
 - Git
 
-Comandos:
+### Comandos:
 ```bash
 - Get-Service ssh-agent | Set-Service -StartupType Automatic -PassThru | Start-Service # PowerShell
 - eval "$(ssh-agent -s)"
@@ -41,6 +41,26 @@ Comandos:
 - git push
 - python3 mananage.py makemigrations
 - python3 manage.py migrate
+```
+### Configurar mais de uma chave SSH no Windows
+
+Crie um arquivo chamado config nesse diretório:
+
+> C:\Users\nome_do_usuario\\.ssh
+
+Caso não encontre a pasta .ssh, coloque para exibir itens ocultos ou crie uma.
+
+Coloque o texto abaixo no arquivo **config** que você acabou de criar, e substitua o nome da chave pelo nome que você usou para criar a sua:
+```sh
+Host github.com-ProjetoIntegrador
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/projeto_key
+
+Host github.com-Pessoal
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/windows_key
 ```
 Mudar credenciais do Git no Windows (caso use mais de uma conta no GitHub):
 > Painel de Controle > Gerenciador de Credenciais > Credenciais do Windows > Credenciais Genéricas (remove as credenciais do Git para fazer autenticação novamente)
