@@ -1,4 +1,4 @@
-**Dia 1**
+## Dia 1
 
 ### Configuração:
 - Python
@@ -22,7 +22,7 @@ python3 manage.py startapp nome_da_app
 ### Links:
 - [Python](https://www.python.org/downloads/)
 
-**Dia 2**
+## Dia 2
 
 ### Configuração:
 - OpenSSH Client
