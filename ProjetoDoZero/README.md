@@ -97,3 +97,67 @@ Remova as credenciais do Git para fazer autenticação novamente.
 
 ### Links:
 - [Git](https://git-scm.com/downloads)
+
+## Dia 3
+
+Verificar se o python está no path do windows e corretamente selecionado no VSCode
+
+```bash
+django-admin startproject mysite
+```
+
+- **manage.py**: Um utilitário de linha de comando que permite interagir com o projeto Django.
+
+- **__init__.py**: Um arquivo vazio que diz ao Python que este diretório deve ser considerado um pacote Python.
+
+- **settings.py**: Definições ou configuração do projeto.
+
+```bash
+python manage.py runserver
+```
+
+Para criar um app tenha certeza de estar no mesmo diretório do arquivo manage.py
+
+```bash
+python manage.py startapp core
+```
+
+Criando a primeira View:
+
+#### core/views.py
+```python
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello World")
+```
+
+Criando um arquivo urls.py no app para mapaear a view para uma url:
+
+#### core/urls.py
+```python
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+```
+
+Incluindo as nossa view customizada na raiz do nosso projeto:
+
+#### romaneio/urls.py:
+```python
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('core/', include('core.urls')),
+    path('admin/', admin.site.urls),
+]
+```
+
+```bash
+python manage.py runserver
+```
