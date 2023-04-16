@@ -146,7 +146,7 @@ urlpatterns = [
 ]
 ```
 
-Incluindo o path(url) da nossa view customizada na raiz do nosso projeto:
+Incluindo o path (url) da nossa view customizada na raiz do nosso projeto:
 
 #### projeto/urls.py:
 ```python
