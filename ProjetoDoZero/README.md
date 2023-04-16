@@ -176,7 +176,7 @@ INSTALLED_APPS = [
 ```
 É necessário criar uma pasta chamada **templates** dentro da pasta do app index, pois é lá que o Django vai buscar o arquivo index.html que será criado, bem como outros arquivos estáticos.
 
-Criando a View do app index:
+Criando a view do app index:
 
 #### app_index/views.py
 ```python
