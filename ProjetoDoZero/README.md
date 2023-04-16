@@ -225,7 +225,7 @@ python manage.py runserver
 
 Criar o arquivo **base.html** na pasta *templates* do app index, para usar as extensões de templates (templates tags):
 
-#### base.html
+#### app_index/templates/base.html
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -250,6 +250,7 @@ Criar o arquivo **base.html** na pasta *templates* do app index, para usar as ex
 Extendendo as configurações do arquivo base.html para o arquivo **index.html**:
 
 #### index.html
+```html
 {% extends 'base.html' %}
 
 {% block title %}Página Index{% endblock %}
@@ -259,6 +260,7 @@ Extendendo as configurações do arquivo base.html para o arquivo **index.html**
 <h1>INDEX</h1>
 
 {% end block %}
+```
 
 ```bash
 python manage.py runserver
