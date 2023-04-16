@@ -154,7 +154,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-	path('hello/', include('app_hello.urls')),
+	path('hello/', include('app_hello.urls')), # path do app hello
 	path('admin/', admin.site.urls),
 ]
 ```
@@ -208,7 +208,7 @@ from django.urls import include, path
 
 urlpatterns = [
 	path('hello/', include('app_hello.urls')),
-	path('index/', include('app_index.urls')),
+	path('index/', include('app_index.urls')), # path do app index
 	path('admin/', admin.site.urls),
 ]
 ```
