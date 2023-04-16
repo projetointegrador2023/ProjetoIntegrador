@@ -155,7 +155,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('hello/', include('app_hello.urls')),
-	path('admin/', admin.site.urls),
+path('admin/', admin.site.urls),
 ]
 ```
 
@@ -208,8 +208,8 @@ from django.urls import include, path
 
 urlpatterns = [
 	path('hello/', include('app_hello.urls')),
-	path('index/', include('app_index.urls')),
-	path('admin/', admin.site.urls),
+path('index/', include('app_index.urls')),
+path('admin/', admin.site.urls),
 ]
 ```
 Criando um arquivo index.html e adicionando uma simples tag html para testar se funcionou:
