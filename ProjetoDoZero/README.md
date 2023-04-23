@@ -256,7 +256,7 @@ python manage.py runserver
 
 Criar o arquivo **base.html** na pasta *templates* do app index, para usar as extensões de templates (templates tags):
 
-#### app_index/templates/base.html
+`app_index/templates/base.html`
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -299,232 +299,247 @@ python manage.py runserver
 
 ## Dia 5 (Models)
 
-Criar um aplicativo chamado **notas_fiscais**
+Criar um app chamado nota_fiscal:
+```sh
+python manage.py startapp nota_fiscal
 ```
-python manage.py startapp notas_fiscais
-```
-
-No arquivo `notas_fiscais/models.py`, criar um modelo para a nota fiscal
-```python
+Abrir o arquivo `models.py` dentro do diretório `nota_fiscal` e defina o modelo da nota fiscal
+```py
 from django.db import models
 
 class NotaFiscal(models.Model):
-    numero = models.IntegerField()
     data_emissao = models.DateField()
-    valor_total = models.DecimalField(max_digits=8, decimal_places=2)
+    valor_total = models.DecimalField(max_digits=10, decimal_places=2)
 ```
-
-Criar uma view para a nota fiscal no arquivo `notas_fiscais/views.py`
-```python
-from django.shortcuts import render
+Abra o arquivo `admin.py` dentro do diretório `nota_fiscal` e registre o modelo
+```py
+from django.contrib import admin
 from .models import NotaFiscal
 
-def nota_fiscal(request, nota_fiscal_id):
-    nota_fiscal = NotaFiscal.objects.get(pk=nota_fiscal_id)
-    return render(request, 'nota_fiscal.html', {'nota_fiscal': nota_fiscal})
+admin.site.register(NotaFiscal)
 ```
+Criar a views para a criação de notas fiscais no arquivo `views.py` dentro do diretório `nota_fiscal`
+```py
+from django.shortcuts import render
+from .forms import NotaFiscalForm
 
-Criar um template HTML para a nota fiscal em `notas_fiscais/templates/nota_fiscal.html`
+def criar_nota_fiscal(request):
+    if request.method == 'POST':
+        form = NotaFiscalForm(request.POST)
+        if form.is_valid():
+            form.save()                       
+    else:
+        form = NotaFiscalForm()
+    return render(request, 'criar_nota_fiscal.html', {'form': form})
+```
+Crie um formulário para criação de notas fiscais no arquivo `forms.py` dentro do diretório `nota_fiscal`
+```py
+from django import forms
+from .models import NotaFiscal
+
+class NotaFiscalForm(forms.ModelForm):
+    class Meta:
+        model = NotaFiscal
+        fields = ['data_emissao', 'valor_total']
+```
+Configure as rotas para as views no arquivo `urls.py` dentro do diretório `nota_fiscal`
+```py
+from django.urls import path
+from . import views
+
+urlpatterns = [    
+    path('create/', views.nota_fiscal_create, name='nota_fiscal_create'),
+]
+```
+Configure as rotas do app no arquivo `urls.py` dentro do diretório `projeto`
+```py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('nota_fiscal/', include('nota_fiscal.urls')),
+]
+```
+Crie o template `criar_nota_fiscal.html` em `nota_fiscal/templates/nota_fiscal/` com o seguinte código
+
 ```html
-{% load static %}
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Minha nota fiscal</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/nota_fiscal.css' %}">
-    <script type="text/javascript" src="{% static 'js/nota_fiscal.js' %}"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Nota Fiscal</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'notafiscal/css/style.css' %}">
+    <script type="text/javascript" src="{% static 'notafiscal/js/script.js' %}"></script>
+</head>
+
 </head>
 <body>
-    <form>
-        <label for="numero">Número:</label>
-        <input type="number" id="numero" name="numero"><br>
+  <header>
+    <h1>Nota Fiscal</h1>
+  </header>
 
-        <label for="data_emissao">Data de emissão:</label>
-        <input type="date" id="data_emissao" name="data_emissao"><br>
-
-        <label for="valor_total">Valor total:</label>
-        <input type="number" step="0.01" id="valor_total" name="valor_total"><br>
-
-        <button type="submit">Enviar</button>
+  <main>
+    <form method="post">
+      {% csrf_token %}
+      <div>
+        <label for="data_emissao">Data de Emissão:</label>
+        <input type="date" id="data_emissao" name="data_emissao" required>
+      </div>
+      <div>
+        <label for="valor_total">Valor Total:</label>
+        <input type="number" id="valor_total" name="valor_total" step="0.01" required>
+      </div>
+      <button type="submit">Enviar</button>
     </form>
+
+    {% if notas_fiscais %}
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data de Emissão</th>
+            <th>Valor Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for nf in notas_fiscais %}
+            <tr>
+              <td>{{ nf.id }}</td>
+              <td>{{ nf.data_emissao|date:"d/m/Y" }}</td>
+              <td>{{ nf.valor_total }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Não há notas fiscais registradas.</p>
+    {% endif %}
+  </main>
+
+  <script src="{% static 'js/criar.js' %}"></script>
 </body>
 </html>
 ```
 
-Criar o arquivo CSS em `notas_fiscais/static/css/nota_fiscal.css`
+Crie uma pasta chamada `static` no diretório do app `nota_fiscal` se ela ainda não existir. Dentro dela, crie duas pastas: `css` e `js`.
+Dentro da pasta `css`, crie um arquivo chamado `criar.css`. E dentro da pasta `js`, crie um arquivo chamado `criar.js`.
 
+O arquivo `criar.css` terá o seguinte conteúdo:
 ```css
-/* Define a fonte e tamanho padrão */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
 }
 
-/* Estilo para o título da página */
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
 h1 {
-  font-size: 28px;
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  font-size: 2em;
 }
 
-/* Estilo para o formulário */
-form {
-  width: 60%;
+main {
+  max-width: 800px;
   margin: 0 auto;
+  padding: 20px;
+  background-color: white;
 }
 
-/* Estilo para o rótulo do campo de entrada */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 label {
-  display: block;
+  margin-top: 10px;
+}
+
+input {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
   margin-top: 20px;
 }
 
-/* Estilo para o campo de entrada */
-input[type="text"],
-input[type="number"],
-input[type="date"] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 5px;
-  margin-bottom: 10px;
+th, td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
 }
 
-/* Estilo para o botão de envio */
-input[type="submit"] {
-  background-color: #4CAF50;
+thead {
+  background-color: #333;
   color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
 }
 
-/* Estilo para as mensagens de erro */
-.error-message {
-  color: red;
-  margin-top: 5px;
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-/* Estilo para a mensagem de sucesso */
-.success-message {
-  color: green;
-  margin-top: 5px;
+p {
+  margin-top: 20px;
+  text-align: center;
+  font-style: italic;
+  color: #999;
 }
 ```
 
-
-Criar o arquivo JavaScript em `notasfiscais/static/js/nota_fiscal.js`
+O arquivo `criar.js` terá o seguinte conteúdo:
 
 ```js
+// Para exibir mensagem de confirmação após o envio do formulário
 const form = document.querySelector('form');
-
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    // Obtém os valores dos campos do formulário
-    const numero = document.querySelector('#numero').value;
-    const data_emissao = document.querySelector('#data_emissao').value;
-    const valor_total = document.querySelector('#valor_total').value;
-
-    // Valida os campos do formulário
-    const errors = [];
-    if (!numero) {
-        errors.push('O número da nota fiscal é obrigatório.');
-    }
-    if (!data_emissao) {
-        errors.push('A data de emissão é obrigatória.');
-    }
-    if (!valor_total) {
-        errors.push('O valor total é obrigatório.');
-    }
-
-    if (errors.length > 0) {
-        // Se houver erros, exibe-os na tela
-        const errorElement = document.querySelector('#form-errors');
-        errorElement.innerHTML = '';
-        errors.forEach((error) => {
-            const li = document.createElement('li');
-            li.textContent = error;
-            errorElement.appendChild(li);
-        });
-    } else {
-        // Se não houver erros, envia os dados do formulário para o servidor
-        const nota_fiscal = {
-            numero: numero,
-            data_emissao: data_emissao,
-            valor_total: valor_total,
-        };
-
-        fetch('/notas_fiscais/criar_nota_fiscal/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(nota_fiscal),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Nota fiscal criada com sucesso:', data);
-            // Redireciona o usuário para a página da nota fiscal criada
-            window.location.href = '/notas_fiscais/' + data.id + '/';
-        })
-        .catch(error => {
-            console.error('Erro ao criar nota fiscal:', error);
-        });
-    }
+form.addEventListener('submit', function(e) {
+  const confirmacao = confirm('Deseja realmente enviar essa nota fiscal?');
+  if (!confirmacao) {
+    e.preventDefault();
+  }
 });
 ```
 
-Adicionar o aplicativo `notasfiscais` e o diretório `templates` ao arquivo `settings.py` do projeto
-```python
-INSTALLED_APPS = [
-    ...
-    'notasfiscais',
-    ...
-]
-
-TEMPLATES = [
-    {
-        ...
-        'APP_DIRS': True,
-        ...
-    },
-]
-```
-
-Criar uma URL para a view da nota fiscal em `notas_fiscais/urls.py`
-```md
-O <int:nota_fiscal_id> é uma expressão regular que define uma parte variável do caminho da URL, 
-que deve ser um número inteiro. Essa parte variável é capturada e passada para a função nota_fiscal 
-como um argumento com o nome nota_fiscal_id.
-```
-
-```python
+Adicione a URL da view registrar_nota_fiscal ao arquivo urls.py do app nota_fiscal:
+```py
 from django.urls import path
-from . import views
+from .views import listar_notas_fiscais, registrar_nota_fiscal
 
 urlpatterns = [
-    path('nota_fiscal/<int:nota_fiscal_id>/', views.nota_fiscal, name='nota_fiscal'),
+    path('criar/', registrar_nota_fiscal, name='nota_fiscal_criar'),
 ]
 ```
-
-Inclua as URLs do aplicativo no arquivo `urls.py` do projeto
-```python
-from django.urls import include, path
-
-urlpatterns = [
-    path('', include('notasfiscais.urls')),
-]
-```
-
-Rode o servidor
-```
+Depois disso, rode as migrações para criar o novo banco de dados do SQLite
+```sh
+python manage.py makemigrations
+python manage.py migrate
+``` 
+Agora, quando o usuário acessar a URL `/nota_fiscal/criar/`, ele verá o formulário para criar uma nova nota fiscal.
+Ao enviar o formulário, uma nova instância de NotaFiscal será criada e salva no banco de dados.
+```sh
 python manage.py runserver
 ```
-Para acessar uma nota fiscal específica, você precisa acessar `http://localhost:8000/nota_fiscal/1/` - *substitua "1" pelo ID da nota fiscal desejada*

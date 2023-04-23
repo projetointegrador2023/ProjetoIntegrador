@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Criar Nova Nota Fiscal</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/criar.css">
+  </head>
+  <body>
+    <div class="container">
+      <h2>Criar Nova Nota Fiscal</h2>
+      <form method="POST" id="nota-fiscal-form">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="data_emissao">Data de Emissão:</label>
+          <input type="date" class="form-control" id="data_emissao" name="data_emissao" required>
+        </div>
+        <div class="form-group">
+          <label for="valor_total">Valor Total:</label>
+          <input type="number" class="form-control" id="valor_total" name="valor_total" min="0" step="0.01" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </form>
+    </div>
+    <script src="../../static/js/criar.js"></script>
+  </body>
+</html>

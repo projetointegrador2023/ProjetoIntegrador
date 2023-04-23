@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_hello',
     'app_index',
+    'nota_fiscal', 
 
 ]
 
@@ -60,7 +61,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
       # 'DIRS': [],
         'DIRS': [
-            os.path.join(BASE_DIR, 'app_index', 'templates')
+            os.path.join(BASE_DIR, 'app_index', 'templates'),
+            os.path.join(BASE_DIR, 'nota_fiscal', 'templates', 'nota_fiscal'),
             ],
         'APP_DIRS': True,
         'OPTIONS': {
