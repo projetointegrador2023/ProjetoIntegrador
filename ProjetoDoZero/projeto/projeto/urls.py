@@ -23,7 +23,7 @@ urlpatterns = [
     #path('', views.funcao_hello),
     path('hello/', include('app_hello.urls')),
     path('', include('app_index.urls')),
-     path('nota_fiscal/', include('nota_fiscal.urls')),     
+    path('nota_fiscal/', include('nota_fiscal.urls')),     
     
 ]
 
