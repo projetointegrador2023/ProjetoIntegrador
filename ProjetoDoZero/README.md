@@ -254,6 +254,8 @@ Rode o servidor
 python manage.py runserver
 ```
 
+## Template Tags
+
 Criar o arquivo **base.html** na pasta *templates* do app index, para usar as extensões de templates (templates tags):
 
 `app_index/templates/base.html`
@@ -297,6 +299,36 @@ Rode o servidor
 python manage.py runserver
 ```
 
+### Template Tags customizadas
+
+Criar o diretório (pasta) `templatetags` dentro do diretório do app (no nosso caso app_index) onde ficarão as tags customizadas
+
+Criando a tag **hello_tag**
+
+1 - Criar um arquivo `helloTag.py` dentro do diretório `templatetags`
+
+2- Escrever o código da tag personalizada
+
+`helloTag.py`
+```python
+from django import template
+
+register = template.Library()
+
+@register.hello_tag
+def my_tag():
+    return "Hello World"
+```
+Obs: estamos importando a biblioteca **template** do Django e criando uma instância da classe **Library**.
+Em seguida, registramos a tag personalizada usando o decorador **@register**.hello_tag.
+Este decorador indica ao Django que estamos criando uma tag simples que não precisa de argumentos.
+
+3 - No arquivo **index.html**, importe o código da tag personalizada, desse modo já é possível utilizá-la no arquivo html:
+```html
+{% load helloTag %}
+
+{ % hello_tag % }
+```
 ## Dia 5 (Models)
 
 Criar um app chamado nota_fiscal:
@@ -510,28 +542,6 @@ p {
   color: #999;
 }
 ```
-
-O arquivo `criar.js` terá o seguinte conteúdo:
-
-```js
-// Para exibir mensagem de confirmação após o envio do formulário
-const form = document.querySelector('form');
-form.addEventListener('submit', function(e) {
-  const confirmacao = confirm('Deseja realmente enviar essa nota fiscal?');
-  if (!confirmacao) {
-    e.preventDefault();
-  }
-});
-```
-
-Adicione a URL da view registrar_nota_fiscal ao arquivo urls.py do app nota_fiscal:
-```py
-from django.urls import path
-from .views import listar_notas_fiscais, registrar_nota_fiscal
-
-urlpatterns = [
-    path('criar/', registrar_nota_fiscal, name='nota_fiscal_criar'),
-]
 ```
 Depois disso, rode as migrações para criar o novo banco de dados do SQLite
 ```sh
